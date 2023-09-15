@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App</title>
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script type="module" src="/assets/js/app.js"></script>
+</head>
+<body>
+    <main class="main">
+        <section class="form-section">
+            <form class="form" autocomplete="off">
+                
+                <fieldset class="fieldset title-fieldset">
+                    <label class="form__label" for="title">Title</label>
+                    <input id="title" class="form__input form__input--title" type="text" placeholder="Type a title" name="title">
+                    <small class="advise advise__hidden advise__title">Title is wrong!</small>
+                </fieldset>
+
+
+                <fieldset class="fieldset date-fieldset">
+                    <label class="form__label" for="finished">Finished At</label>
+                    <input id="finished" class="form__input form__input--date" type="date" name="finished">
+                    <small class="advise advise__hidden advise__date">Date is wrong!</small>
+                </fieldset>
+
+                <fieldset class="fieldset description-fieldset">
+                    <label class="form__label" for="description">Description</label>
+                    <textarea class="form__textarea" name="description" id="description" placeholder="Describe your task here!"></textarea>
+                    <small class="advise advise__hidden advise__description">Description is wrong!</small>
+                </fieldset>
+                
+                <button type="submit" class="form__btn">Save</button>
+            </form>
+        </section>
+        <section class="task-section">
+            <menu class="menu">
+                <input class="menu__todo menu__radio" type="radio" id="menu-todo" name="menu" checked value="todo">
+                <label class="menu__label menu-todo" for="menu-todo">To Do</label>
+
+                <input class="menu__doing menu__radio" type="radio" id="menu-doing" name="menu" value="doing">
+                <label class="menu__label menu-doing" for="menu-doing">Doing</label>
+
+                <input class="menu__done menu__radio" type="radio" id="menu-done" name="menu" value="done">
+                <label class="menu__label menu-done" for="menu-done">Done</label>
+            </menu>
+            <section class="tasks">
+                <article class="task todo">
+                    <div class="task__head">
+                        <label for="task" class="task__label">
+                            <span class="task__title">Leer el libro "La metamorfosis"</span>
+                        </label>
+                        <div class="task__action">
+                            <img src="assets/icons/edit.svg" alt="edit" class="task__icon">
+                            <img src="assets/icons/delete.svg" alt="delete" class="task__icon">
+                        </div>
+                    </div>
+
+                    <input type="checkbox" id="task" class="task__checkbox">
+                    <section class="task__description description">
+                        <span class="description__text">Lorem ipsum dolor sit, amet consectetur.</span>
+
+                        <section class="radio-buttons radio">
+                            <input class="radio__btn" type="radio" name="status" id="todo" value="todo" checked>
+                            <label for="todo" class="radio__label">
+                                <span class="todo__circle"></span>
+                                <span class="todo__span">To Do</span>
+                            </label>
+
+                            <input class="radio__btn" type="radio" name="status" id="doing" value="doing">
+                            <label for="doing" class="radio__label">
+                                <span class="todo__circle"></span>
+                                <span class="todo__span">Doing</span>
+                            </label>
+
+
+                            <input class="radio__btn" type="radio" name="status" id="done" value="done">
+                            <label for="done" class="radio__label">
+                                <span class="todo__circle"></span>
+                                <span class="todo__span">Done</span>
+                            </label>
+                        </section>
+                    </section>
+                </article>
+            </section>
+        </section>
+    </main>
+</body>
+</html>

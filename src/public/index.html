@@ -10,6 +10,12 @@
 </head>
 <body>
     <main class="main">
+        
+        <article class="error">
+            <span class="error__text">Validation Error!</span>
+            <img class="error_icon" src="assets/icons/equis.svg" alt="close">
+        </article>
+
         <section class="form-section">
             <form class="form" autocomplete="off">
                 
@@ -46,45 +52,8 @@
                 <input class="menu__done menu__radio" type="radio" id="menu-done" name="menu" value="done">
                 <label class="menu__label menu-done" for="menu-done">Done</label>
             </menu>
-            <section class="tasks">
-                <article class="task todo">
-                    <div class="task__head">
-                        <label for="task" class="task__label">
-                            <span class="task__title">Leer el libro "La metamorfosis"</span>
-                        </label>
-                        <div class="task__action">
-                            <img src="assets/icons/edit.svg" alt="edit" class="task__icon">
-                            <img src="assets/icons/delete.svg" alt="delete" class="task__icon">
-                        </div>
-                    </div>
-
-                    <input type="checkbox" id="task" class="task__checkbox">
-                    <section class="task__description description">
-                        <span class="description__text">Lorem ipsum dolor sit, amet consectetur.</span>
-
-                        <section class="radio-buttons radio">
-                            <input class="radio__btn" type="radio" name="status" id="todo" value="todo" checked>
-                            <label for="todo" class="radio__label">
-                                <span class="todo__circle"></span>
-                                <span class="todo__span">To Do</span>
-                            </label>
-
-                            <input class="radio__btn" type="radio" name="status" id="doing" value="doing">
-                            <label for="doing" class="radio__label">
-                                <span class="todo__circle"></span>
-                                <span class="todo__span">Doing</span>
-                            </label>
-
-
-                            <input class="radio__btn" type="radio" name="status" id="done" value="done">
-                            <label for="done" class="radio__label">
-                                <span class="todo__circle"></span>
-                                <span class="todo__span">Done</span>
-                            </label>
-                        </section>
-                    </section>
-                </article>
-            </section>
+            
+            <section class="tasks"></section>
         </section>
     </main>
 </body>

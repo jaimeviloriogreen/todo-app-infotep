@@ -1,100 +1,51 @@
+import { saveTask, updateTaskStatus } from "./modules/tasks.js";
+import { renderViewTodo, renderViewDoing, renderViewDone } from "./modules/views.js";
+
 const form = document.querySelector(".form");
-const adviseText = document.querySelectorAll(".advise");
-const inputRadio = document.querySelectorAll(".radio__btn[type=radio]");
+
+const closeIconAlert = document.querySelector(".error_icon");
+const errorAlert = document.querySelector(".error");
+
 const menuRadio = document.querySelectorAll(".menu__radio[type=radio]");
 const tasks = document.querySelector(".tasks");
 
+let menuLocation = "";
 
-form.addEventListener("submit", saveTask);
+renderViewTodo();
 
-async function saveTask(e){
-    e.preventDefault();
-
-    const task = new FormData(form);
-
-    const title = task.get("title");
-    const date = task.get("finished");
-    const description = task.get("description");
-
-    const {href:url} = new URL("save_task", location.href);
-    
-    const req = await fetch(url, {
-        method:"POST", 
-        headers:{"Content-Type":"application/json;charset=utf-8"},
-        body:JSON.stringify({title, description, date})
-    });
-
-    const res = await req.json();
-
-    console.log(res);
-    const hasPassed = errorHandle(res);
-
-    if(hasPassed) form.reset();
-}
-function errorHandle({error}){
-    if(error === "title wrong"){
-        inputErrorRemove();
-        form.title.focus();
-        form.title.classList.add("error");
-        adviseErrorText("title");
-        return;
-    }
-
-    if(error === "date wrong"){
-        inputErrorRemove();
-        form.finished.focus();
-        form.finished.classList.add("error");
-        adviseErrorText("date");
-        return;
-    }
-
-    if(error === "description wrong"){
-        inputErrorRemove();
-        form.description.focus();
-        form.description.classList.add("error");
-        adviseErrorText("description");
-        return;
-    }
-    adviseErrorText();
-    inputErrorRemove();
-    return true;
-}
-function inputErrorRemove(){
-    form.title.classList.remove("error");
-    form.finished.classList.remove("error");
-    form.description.classList.remove("error");
-}
-function adviseErrorText(element = null){
-    adviseText.forEach(item => {
-        if(!item.classList.contains("advise__hidden")){
-            item.classList.add("advise__hidden");
-        }
-
-        if(item.classList.contains(`advise__${element}`)){
-            item.classList.remove("advise__hidden");
-        }
+if(closeIconAlert){
+    closeIconAlert.addEventListener("click", (e)=>{
+        errorAlert.classList.remove("error__visible");
     })
 }
 
-// inputRadio.forEach(input =>{
-//     if(input.value === "doing") input.checked = true;
-    
-//     input.addEventListener("input",getRadioValue)
-// });
+form.addEventListener("submit", saveTask);
 
-// function getRadioValue(e){
-//     console.log(e.target);
-// }
+tasks.addEventListener("click", (e)=>{
+    if(e.target.className === "radio__btn"){
+        
+        if(menuLocation === "todo") renderViewTodo();
+        if(menuLocation === "doing") renderViewDoing();
+        if(menuLocation === "done") renderViewDone();
+        
+        updateTaskStatus(e.target.name, e.target.value);
+    }
+});
 
 
 menuRadio.forEach(radio =>{
-    // if(radio.value === "doing") radio.checked = true;
-    
-    radio.addEventListener("input", renderView)
+
+    if(radio.value === "todo") radio.addEventListener("input", ()=>{
+        menuLocation = radio.value;
+        renderViewTodo();
+    });
+    if(radio.value === "doing") radio.addEventListener("input", ()=>{
+        menuLocation = radio.value;
+        renderViewDoing();
+    });
+    if(radio.value === "done") radio.addEventListener("input", ()=>{
+        menuLocation = radio.value;
+        renderViewDone();
+    });
 });
 
-function renderView(e){
-    const h2 = document.createElement("h2");
-    h2.textContent = "render view";
-    tasks.insertAdjacentElement("beforeend", h2);
-}

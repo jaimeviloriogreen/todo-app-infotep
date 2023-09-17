@@ -1,12 +1,15 @@
-import { Sequelize, Model, DataTypes } from "sequelize";
-// import { v4 as uuidv4 } from 'uuid';
-
-// import sqlite3 from "sqlite3";
+import { Sequelize, DataTypes } from "sequelize";
 
 const sequelize = new Sequelize({
     dialect:"sqlite", 
-    storage:"../databases/todo.db"
+    storage:"./src/databases/todo.db"
 });
+
+const regExp = /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})/g;
+
+const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+const date = new Date().toLocaleDateString("es-DO", options);
+const toDay = date.replace(regExp, "$3-$2-$1");
 
 const Task = sequelize.define('Task', {
     uuid_task:{
@@ -17,7 +20,6 @@ const Task = sequelize.define('Task', {
     title:{
         type:DataTypes.STRING, 
         allowNull:false, 
-        unique:true, 
         validate:{
             notEmpty: true
         }
@@ -29,9 +31,15 @@ const Task = sequelize.define('Task', {
             notEmpty: true
         }
     },
+    finished_at:{
+        type:DataTypes.DATEONLY,
+        allowNull:false,
+        validate:{
+            isAfter:toDay
+        }
+    },
     status:{
         type:DataTypes.TEXT,
-        allowNull:false,
         defaultValue:"todo",
         validate:{
             isIn:[["todo", "doing", "done"]]
@@ -39,20 +47,14 @@ const Task = sequelize.define('Task', {
     },
     created_at:{
         type:DataTypes.DATEONLY, 
-        defaultValue: new Date().toLocaleDateString("es-DO"), 
+        defaultValue: toDay, 
         allowNull:false
-    },
-    finished_at:{
-        type:DataTypes.DATEONLY,
-        allowNull:false,
-        validate:{
-            isAfter:new Date().toLocaleDateString("es-DO")
-        }
     }
-});
+}, { timestamps:false });
 
 
-
+// await sequelize.sync({ force: true });
+await sequelize.sync();
 
 export default Task;
 

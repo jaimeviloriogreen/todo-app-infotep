@@ -6,6 +6,7 @@
     display: grid;
     grid-template-columns: 25rem 1fr;
     grid-template-rows: 1fr;
+    position: relative;
 
 }
 .form-section{
@@ -74,7 +75,7 @@
 .advise__hidden{
     visibility: hidden;
 }
-.error{
+.errorInputs{
     outline:none;
     border: solid 2px var(--color13);
 }
@@ -146,7 +147,7 @@
     width: calc(100% - (var(--marginTasks) * 2));
     height: calc(100% - (var(--marginTasks) * 2));
     margin:  var(--marginTasks);
- 
+    max-height: calc(100vh - var(--marginTasks) * 2);
 }
 .tasks{
     border: 1px solid var(--borderTask);
@@ -207,13 +208,21 @@
     background-color: rgb(230, 230, 230);
     display: none;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 3rem;
+    grid-template-rows: 1fr 1.5rem 3rem;
 }
 .description__text{overflow: scroll;}
 .task__checkbox:checked + .task__description{
     display: grid;
 }
-
+.description__date{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1.0625rem;
+}
 /* Redio Buttons */
 .radio-buttons{
     --inactiveColor:rgb(186, 186, 186);
@@ -224,6 +233,7 @@
     justify-content: flex-end;
     align-items: flex-end;
     gap: .25rem;
+    grid-area: 3/1/4/-1;
 }
 .radio__label{
     display: flex;
@@ -258,9 +268,40 @@
     border-color: #fff;
     transition: all 300ms ease;
 }
-
-
-
 .radio__btn{
     display: none;
+}
+
+/* Alert */
+
+.error{
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    width: 12.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: .25rem;
+    padding: .5rem;
+    background-color: rgba(209, 131, 131, 0.673);
+    transform: translateY(-15rem);
+    visibility: hidden;
+    transition: transform 300ms ease;
+}
+
+.error__visible{
+    visibility: visible;
+    transform: translateY(0rem);
+    transition: transform 300ms ease, visible 300ms ease;
+}
+.error_icon{
+    cursor: pointer;
+}
+.error__text{
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(121, 45, 45, 1);
+    letter-spacing: 1.0625px;
 }
